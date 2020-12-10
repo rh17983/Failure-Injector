@@ -23,27 +23,29 @@ def cpuhog(loop, sleep):
 
 
 if len(sys.argv) < 3:
-    print("Expect 2 arguments: $target $interval")
+    print("Expected 2 arguments: (1) Injection intensity patternt, (2) Injection interval")
     sys.exit(1)
 
+_linear = False
 _random = False
-exponential = False
+_exponential = False
 
-para = sys.argv[2]
-
-if 'random' in para:
-    _random = True
-    para = para.replace('random', '')
-
-if 'expo' in para:
-    exponential = True
-    para = para.replace('expo', '')
-
+intensity = str(sys.argv[1])
 try:
-    interval = int(para)
+    interval = int(sys.argv[2])
 except ValueError:
     print("interval cannot be parsed!!Aborting..")
     sys.exit(1)
+
+if intensity == 'linear':
+    _linear = True
+
+if intensity == 'expo':
+    _exponential = True
+
+if intensity == 'random':
+    _random = True
+
 
 flag = Value('b', True)
 signal.signal(signal.SIGTERM, signal_handler)
@@ -98,11 +100,16 @@ while flag.value:
     if percent < 500:
         scale = 1
 
+        if _linear:
+            scale = 1
+
         if _random:
             if random.random() > 0.5:
                 scale = 0
+            else:
+                scale = 1
 
-        if exponential:
+        if _exponential:
             scale = expo_scale
             expo_scale += 1
 
