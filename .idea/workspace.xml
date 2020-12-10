@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="eac7823f-1721-4250-a47a-1f3d291a05c2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CPUhog.py" beforeDir="false" afterPath="$PROJECT_DIR$/cpu_hog.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/redis_packet_loss.py" beforeDir="false" afterPath="$PROJECT_DIR$/packet_loss.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
