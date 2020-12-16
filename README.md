@@ -5,7 +5,7 @@
 
 #### Notes:
 1. The scrips must be run locally on the target machine
-2. See package requirements in the Pipfile
+2. See package requirements in the Pipfile (python 2.7 required!)
 
 ## 1. CPU Hog fault injection
 
@@ -25,16 +25,17 @@ where:<br>
 ## 2. Packet Loss fault injection
 #### ToDo:
 
-Run: python packet_loss.py fault-injection-intensity-pattern initial-loss-rate
+Run: python packet_loss.py fault-injection-intensity-pattern initial-loss-rate network-interface
 
 where:<br>
 1. fault-injection-intensity-pattern is a string indicating one of the following injection intensity patterns: {linear, expo, random}
 2. initial-loss-rate is an integer in the range [0 - 99] indicating the initial loss rate (%)
+3. network-interface is a logical name of the target network interface (use "sudo lshw -C network" command to get the info needed)
 
 #### Examples:
-* Linear pattern: python redis_packet_loss.py linear 25
-* Exponential pattern: python redis_packet_loss.py expo 1
-* Random pattern: python redis_packet_loss.py random 0
+* Linear pattern: python packet_loss.py linear 25 eth0
+* Exponential pattern: python packet_loss.py expo 1 eth0
+* Random pattern: python packet_loss.py random 0 eth0
 
 
 ## 3. Memory Leak fault injection
