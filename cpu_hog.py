@@ -89,16 +89,10 @@ print(len(thread_pool))
 
 step_size = 5
 for i in range(cpunum):
-
-    thread_id = i * step_size
-    print("Thread ", thread_id, " started!")
-
-    thread_pool[thread_id].start()
-    thread_pool[thread_id + 1].start()
-    thread_pool[thread_id + 2].start()
-    thread_pool[thread_id + 3].start()
-    thread_pool[thread_id + 4].start()
-
+    for j in range(step_size):
+        thread_id = i * step_size + j
+        thread_pool[thread_id].start()
+        print("Thread ", thread_id, " started!")
 
 percent = percent_init
 expo_scale = 1
