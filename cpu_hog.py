@@ -61,6 +61,8 @@ thread_pool = []
 sleeptime_lst = []
 loop_lst = []
 
+proc_num = 5
+
 # loop by each CPU to create a threads for each CPU
 for i in range(cpunum):
 
@@ -71,28 +73,18 @@ for i in range(cpunum):
     looptime = Value('i', loop_init)
     sleeptime = Value('d', sleep_init * 1.0 / cpu_clock)
 
-    p = Process(target=cpuhog, args=(looptime, sleeptime,))
-    thread_pool.append(p)
-    p = Process(target=cpuhog, args=(looptime, sleeptime,))
-    thread_pool.append(p)
-    p = Process(target=cpuhog, args=(looptime, sleeptime,))
-    thread_pool.append(p)
-    p = Process(target=cpuhog, args=(looptime, sleeptime,))
-    thread_pool.append(p)
-    p = Process(target=cpuhog, args=(looptime, sleeptime,))
-    thread_pool.append(p)
+    for j in range(proc_num):
+        p = Process(target=cpuhog, args=(looptime, sleeptime,))
+        thread_pool.append(p)
 
     sleeptime_lst.append(sleeptime)
     loop_lst.append(looptime)
 
-print(len(thread_pool))
-
-step_size = 5
-for i in range(cpunum):
-    for j in range(step_size):
-        thread_id = i * step_size + j
-        thread_pool[thread_id].start()
-        print("Thread ", thread_id, " started!")
+for cpu_index in range(cpunum):
+    for j in range(proc_num):
+        thread_index = cpu_index * proc_num + j
+        thread_pool[thread_index].start()
+        print("Thread ", thread_index, " started!")
 
 percent = percent_init
 expo_scale = 1
