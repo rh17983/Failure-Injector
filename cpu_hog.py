@@ -85,12 +85,20 @@ for i in range(cpunum):
     sleeptime_lst.append(sleeptime)
     loop_lst.append(looptime)
 
+print(len(thread_pool))
+
+step_size = 5
 for i in range(cpunum):
-    thread_pool[i].start()
-    thread_pool[i+1].start()
-    thread_pool[i+2].start()
-    thread_pool[i+3].start()
-    thread_pool[i+4].start()
+
+    thread_id = i * step_size
+    print("Thread ", thread_id, " started!")
+
+    thread_pool[thread_id].start()
+    thread_pool[thread_id + 1].start()
+    thread_pool[thread_id + 2].start()
+    thread_pool[thread_id + 3].start()
+    thread_pool[thread_id + 4].start()
+
 
 percent = percent_init
 expo_scale = 1
