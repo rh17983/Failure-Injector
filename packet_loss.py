@@ -29,12 +29,12 @@ if pattern == "random":
 
 
 def run_packet_loss_rate_change_command(rate):
-    command = "sudo tc qdisc change dev eth0 root netem loss " + str(rate) + "%"
+    command = "sudo tc qdisc change dev ens5 root netem loss " + str(rate) + "%"
     print(command)
     os.system(command)
 
 
-command = "sudo tc qdisc add dev eth0 root netem loss " + str(rate) + "%"
+command = "sudo tc qdisc add dev ens5 root netem loss " + str(rate) + "%"
 os.system(command)
 
 iteration = 0
