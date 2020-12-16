@@ -43,21 +43,17 @@ while True:
 
     if pattern == "linear":
         rate = rate + rate_inc
-        if rate > 100:
-            rate = 100
-        run_packet_loss_rate_change_command(rate)
 
     if pattern == "expo":
         rate = rate_inc ** iteration
-        if rate > 100:
-            rate = 100
-        run_packet_loss_rate_change_command(rate)
 
     if pattern == "random":
         rate = rate + rate_inc * randrange(2)
-        if rate > 100:
-            rate = 100
-        run_packet_loss_rate_change_command(rate)
+
+    if rate > 100:
+        rate = 100
+
+    run_packet_loss_rate_change_command(rate, net_interface)
 
     time.sleep(60)
     iteration += 1
