@@ -52,5 +52,7 @@ command_set = [s.split() for s in command_set]
 for command in command_set:
     subprocess.Popen(command, stdout=subprocess.PIPE).wait()
 
+print("...")
+
 while True:
-    time.sleep(300)
+    time.sleep(3)
