@@ -28,6 +28,10 @@ if pattern == 'expo':
     exponential = True
 
 
+# add rule: tc qdisc add dev eth0 root netem delay 100ms
+# change rule: tc qdisc change dev eth0 root netem delay 120ms
+
+
 def signal_handler(signal, frame):
     subprocess.Popen(['sudo', 'tc', 'qdisc', 'del', 'dev', 'eth0', 'root'], stdout=subprocess.PIPE).wait()
     sys.exit(0)
