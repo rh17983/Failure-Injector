@@ -9,7 +9,7 @@ current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfra
 parent_dir = os.path.dirname(current_dir)
 sys.path.insert(0, parent_dir)
 
-targets = ["172.16.0.248", "192.168.200.189"]
+targets = ["127.0.0.1"]
 
 if len(sys.argv) < 3:
     print("Expect 2 arguments: Injection pattern, Injection intensity rate")
