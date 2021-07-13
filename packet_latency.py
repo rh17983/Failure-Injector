@@ -1,62 +1,54 @@
-import inspect
-import os
-import signal
-import subprocess
-import sys
 import time
-
-current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-parent_dir = os.path.dirname(current_dir)
-sys.path.insert(0, parent_dir)
-
-targets = ["127.0.0.1"]
+import os
+import sys
+from random import randrange
 
 if len(sys.argv) < 3:
-    print("Expect 2 arguments: Injection pattern, Injection intensity rate")
+    print("Expect 2 arguments: 1 - pattern type (linear, expo, random); 2 - network interface name")
     sys.exit(1)
 
 pattern = sys.argv[1]
-rate = int(sys.argv[2])
+net_interface = str(sys.argv[2])
 
-_random = False
-exponential = False
-
-if pattern == 'random':
-    _random = True
-
-if pattern == 'expo':
-    exponential = True
+if pattern != "linear" and pattern != "expo" and pattern != "random":
+    print("The first argument should have one of the following values: linear, expo, random")
+    sys.exit(1)
 
 
-# add rule: tc qdisc add dev eth0 root netem delay 100ms
-# change rule: tc qdisc change dev eth0 root netem delay 120ms
+def run_command(iteration, delay, net_interface, add_dev=False):
+
+    # sudo tc qdisc add dev ens3 root netem delay 97ms
+    # sudo tc qdisc change dev ens3 root netem delay 7ms
+    # tc -s qdisc
+
+    if add_dev:
+        action = "add"
+    else:
+        action = "change"
+
+    command = "sudo tc qdisc " + action + " dev " + net_interface + " root netem delay " + str(delay) + "ms"
+    print(iteration, ":", command)
+    os.system(command)
 
 
-def signal_handler(signal, frame):
-    subprocess.Popen(['sudo', 'tc', 'qdisc', 'del', 'dev', 'eth0', 'root'], stdout=subprocess.PIPE).wait()
-    sys.exit(0)
+delay = 0
 
-
-signal.signal(signal.SIGTERM, signal_handler)
-command_set = []
-
-base = rate + 23.5
-command_set.append("sudo tc qdisc add dev eth0 handle 1: root htb")
-command_set.append("sudo tc class add dev eth0 parent 1: classid 1:1 htb rate 1000Mbps")
-command_set.append("sudo tc class add dev eth0 parent 1:1 classid 1:11 htb rate 100Mbps")
-command_set.append("sudo tc class add dev eth0 parent 1:1 classid 1:12 htb rate 100Mbps")
-command_set.append("sudo tc qdisc add dev eth0 parent 1:11 handle 10: netem delay " + str(base) + "ms " + str(rate) + "ms")
-for ip in targets:
-    command_set.append("sudo tc filter add dev eth0 protocol ip prio 1 u32 match ip dst " + ip + " flowid 1:11")
-    command_set.append("sudo tc filter add dev eth0 protocol ip prio 1 u32 match ip src " + ip + " flowid 1:11")
-command_set.append("sudo tc filter add dev eth0 protocol ip prio 2 u32 match ip src 0.0.0.0/0 flowid 1:12")
-command_set.append("sudo tc filter add dev eth0 protocol ip prio 2 u32 match ip src 0.0.0.0/0 flowid 1:12")
-command_set = [s.split() for s in command_set]
-
-for command in command_set:
-    subprocess.Popen(command, stdout=subprocess.PIPE).wait()
-
-print("...")
-
+iteration = 0
 while True:
-    time.sleep(3)
+
+    if pattern == "linear":
+        delay += 5
+
+    if pattern == "expo":
+        delay += int(1.2 ** iteration)
+
+    if pattern == "random":
+        delay += 10 * randrange(2)
+
+    if iteration == 0:
+        run_command(iteration, delay, net_interface, True)
+    else:
+        run_command(iteration, delay, net_interface)
+
+    time.sleep(60)
+    iteration += 1
