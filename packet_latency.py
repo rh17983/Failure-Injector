@@ -1,3 +1,10 @@
+"""
+Examples:
+    python packet_latency.py linear ens3
+    python packet_latency.py expo ens3
+    python packet_latency.py random ens3
+"""
+
 import time
 import os
 import sys
@@ -16,7 +23,7 @@ if pattern != "linear" and pattern != "expo" and pattern != "random":
 
 
 def run_command(iteration, delay, net_interface, add_dev=False):
-
+    # https://bencane.com/2012/07/16/tc-adding-simulated-network-latency-to-your-linux-server/
     # sudo tc qdisc add dev ens3 root netem delay 97ms
     # sudo tc qdisc change dev ens3 root netem delay 7ms
     # tc -s qdisc
