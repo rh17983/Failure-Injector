@@ -35,7 +35,7 @@ def run_command(iteration, delay, net_interface, add_dev=False):
 
     command = "sudo tc qdisc " + action + " dev " + net_interface + " root netem delay " + str(delay) + "ms"
     print(iteration, ":", command)
-    # os.system(command)
+    os.system(command)
 
 
 delay = 0
@@ -44,13 +44,13 @@ iteration = 0
 while True:
 
     if pattern == "linear":
-        delay += 15
+        delay += 20
 
     if pattern == "expo":
         delay += int(1.15 ** iteration)
 
     if pattern == "random":
-        delay += 25 * randrange(2)
+        delay += 35 * randrange(2)
 
     if iteration == 0:
         run_command(iteration, delay, net_interface, True)
