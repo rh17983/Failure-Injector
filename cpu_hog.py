@@ -88,7 +88,7 @@ for cpu_index in range(cpunum):
         print("Thread ", thread_index, " started!")
 
 percent = percent_init
-expo_scale = 1
+expo_scale = 100
 
 while flag.value:
 
