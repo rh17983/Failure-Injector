@@ -39,7 +39,6 @@ def run_command(iteration, delay, net_interface, add_dev=False):
 
 
 delay = 0
-
 iteration = 0
 while True:
 
