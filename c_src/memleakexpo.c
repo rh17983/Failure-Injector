@@ -28,7 +28,7 @@ int main(){
 		if (scale + 100 > 0){
 		scale += 100;}
 		//usleep(500000);
-		usleep(60000)
+		usleep(60000);
 	}
 	return 0;
 }

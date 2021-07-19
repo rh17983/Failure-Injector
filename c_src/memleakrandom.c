@@ -28,7 +28,7 @@ int main(){
 			memset(p, '0', 50000);
 		}
 		// usleep(100000);
-		usleep(60000)
+		usleep(60000);
 	}
 	return 0;
 }

@@ -24,7 +24,7 @@ int main(){
 		void* p = malloc(50000*sizeof(void));
 		memset(p, '0', 50000);
 		// usleep(1500000);
-		usleep(60000)
+		usleep(60000);
 	}
 	return 0;
 }
