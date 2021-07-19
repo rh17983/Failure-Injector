@@ -5,6 +5,7 @@ import signal
 import sys
 import time
 from multiprocessing import Process, Value
+from random import randrange
 
 
 def signal_handler(signal_, frame):
@@ -60,7 +61,7 @@ thread_pool = []
 sleeptime_lst = []
 loop_lst = []
 
-proc_num = 10
+proc_num = 20
 
 # loop by each CPU to create a threads for each CPU
 for i in range(cpunum):
@@ -87,46 +88,35 @@ for cpu_index in range(cpunum):
         thread_pool[thread_index].start()
         print("Thread ", thread_index, " started!")
 
-percent = percent_init
-expo_scale = 1000
-
+percent = 0
+iteration = 0
 while flag.value:
 
-    time.sleep(interval)
+    if _linear:
+        percent += 1
 
-    if percent < 50000:
-        scale = 1
+    if _exponential:
+        scale = int(2 ** iteration)
 
-        if _linear:
-            scale = 1
-
-        if _random:
-            if random.random() > 0.5:
-                scale = 0
-            else:
-                scale = 1
-
-        if _exponential:
-            scale = expo_scale
-            expo_scale += 1
-
-        percent += scale
+    if _random:
+        percent += 2 * randrange(2)
 
     for i in range(cpunum):
         cpu_clock = float(cpuinfo[i])
-        print("cpu_clock:", cpu_clock)
-        print("percent:", percent)
+        print("cpu_clock:", cpu_clock, "percent:", percent)
 
         loop_new = int(cpu_clock * percent / 100.0)
         sleep_new = cpu_clock - loop_new
 
         if sleep_new <= 0.000000000001:
-            sleep_new = 0.0
+            sleep_new = 0.000000000001
 
         loop_lst[i].value = loop_new
-        print("Loop time: " + str(loop_lst[i].value))
         sleeptime_lst[i].value = sleep_new * 1.0 / cpu_clock
-        print("Sleep time: " + str(sleeptime_lst[i].value))
+        print("Loop time: " + str(loop_lst[i].value), "Sleep time: " + str(sleeptime_lst[i].value))
+
+    iteration += 1
+    time.sleep(interval)
 
 #    print percent, [v.value for v in loop_lst],
 # [v.value for v in sleeptime_lst]
