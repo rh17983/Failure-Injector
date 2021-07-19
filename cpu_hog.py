@@ -54,7 +54,7 @@ flag = Value('b', True)
 signal.signal(signal.SIGTERM, signal_handler)
 
 cpuinfo_raw = open('/proc/cpuinfo').readlines()
-cpuinfo = list(filter(lambda x: x is not None, [float(line.split(':')[1].strip(' ')) * 6000 if 'MHz' in line else None for line in cpuinfo_raw]))
+cpuinfo = list(filter(lambda x: x is not None, [float(line.split(':')[1].strip(' ')) * 3000 if 'MHz' in line else None for line in cpuinfo_raw]))
 cpunum = len(cpuinfo)
 print("Number of CPU: ", cpunum)
 
@@ -63,7 +63,7 @@ thread_pool = []
 sleeptime_lst = []
 loop_lst = []
 
-proc_num = 5
+proc_num = 1
 
 # loop by each CPU to create a threads for each CPU
 for i in range(cpunum):
