@@ -60,7 +60,7 @@ thread_pool = []
 sleeptime_lst = []
 loop_lst = []
 
-proc_num = 5
+proc_num = 10
 
 # loop by each CPU to create a threads for each CPU
 for i in range(cpunum):
@@ -88,7 +88,7 @@ for cpu_index in range(cpunum):
         print("Thread ", thread_index, " started!")
 
 percent = percent_init
-expo_scale = 100
+expo_scale = 1000
 
 while flag.value:
 
