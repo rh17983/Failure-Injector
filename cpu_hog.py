@@ -70,7 +70,13 @@ proc_num = 5
 # loop by each CPU to create a threads for each CPU
 for i in range(cpunum):
 
-    cpu_clock = float(cpuinfo[i])
+    if cpunum == 1:
+        cpu_clock = float(cpuinfo)
+    else:
+        cpu_clock = float(cpuinfo[i])
+
+    print("cpu_clock:", cpu_clock)
+
     loop_init = int(cpu_clock * percent_init / 100.0)
     sleep_init = cpu_clock - loop_init
 
@@ -116,7 +122,13 @@ while flag.value:
         percent += scale
 
     for i in range(cpunum):
-        cpu_clock = float(cpuinfo[i])
+        if cpunum == 1:
+            cpu_clock = float(cpuinfo)
+        else:
+            cpu_clock = float(cpuinfo[i])
+
+        print("cpu_clock:", cpu_clock)
+
         loop_new = int(cpu_clock * percent / 100.0)
         sleep_new = cpu_clock - loop_new
 
