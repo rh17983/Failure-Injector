@@ -24,7 +24,7 @@ def run_command(iteration, rate, net_interface, add_dev=False):
 
     command = "sudo tc qdisc " + action + " dev " + net_interface + " root netem loss " + str(rate) + "%"
     print(iteration, ":", command)
-    os.system(command)
+    # os.system(command)
 
 
 rate = 0
@@ -34,7 +34,7 @@ while True:
         rate += 2
 
     if pattern == "expo":
-        rate += int(1.2 ** iteration)
+        rate += int(1.15 ** iteration)
 
     if pattern == "random":
         rate += 4 * randrange(2)
@@ -47,5 +47,5 @@ while True:
     else:
         run_command(iteration, rate, net_interface)
 
-    time.sleep(60)
+    time.sleep(1)
     iteration += 1
