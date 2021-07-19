@@ -96,7 +96,7 @@ while flag.value:
         percent += 1
 
     if _exponential:
-        scale = int(2 ** iteration)
+        percent = int(2 ** iteration)
 
     if _random:
         percent += 2 * randrange(2)
