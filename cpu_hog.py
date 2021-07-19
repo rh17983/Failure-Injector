@@ -55,8 +55,10 @@ cpuinfo = filter(lambda x: x is not None, [float(line.split(':')[1].strip(' ')) 
 
 print("cpuinfo_raw:", cpuinfo_raw)
 print("cpuinfo", cpuinfo)
-cpuinfo1= list(cpuinfo)
-print("cpuinfo1[0]", cpuinfo1[0])
+cpuinfo= list(cpuinfo)
+print("len(cpuinfo):", len(cpuinfo))
+print("cpuinfo[0]:", cpuinfo[0])
+print("cpuinfo[1]:", cpuinfo[1])
 
 try:
     cpunum = len(cpuinfo)
