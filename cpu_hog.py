@@ -52,9 +52,13 @@ signal.signal(signal.SIGTERM, signal_handler)
 
 cpuinfo_raw = open('/proc/cpuinfo').readlines()
 cpuinfo = filter(lambda x: x is not None, [float(line.split(':')[1].strip(' ')) * 3000 if 'MHz' in line else None for line in cpuinfo_raw])
-cpunum = len(cpuinfo)
 
-print("Nnumber of CPU: ", cpunum)
+try:
+    cpunum = len(cpuinfo)
+except:
+    cpunum = 1
+
+print("Number of CPU: ", cpunum)
 
 percent_init = 0
 thread_pool = []

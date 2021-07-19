@@ -34,7 +34,7 @@ where:<br>
 
 #### Examples:
 * Linear pattern: python packet_loss.py linear 25 eth0
-* Exponential pattern: python packet_loss.py expo 1 eth0
+* Exponential pattern: python packet_loss.py expo 2 eth0
 * Random pattern: python packet_loss.py random 0 eth0
 
 
