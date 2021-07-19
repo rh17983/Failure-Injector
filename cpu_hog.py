@@ -51,20 +51,8 @@ flag = Value('b', True)
 signal.signal(signal.SIGTERM, signal_handler)
 
 cpuinfo_raw = open('/proc/cpuinfo').readlines()
-cpuinfo = filter(lambda x: x is not None, [float(line.split(':')[1].strip(' ')) * 3000 if 'MHz' in line else None for line in cpuinfo_raw])
-
-print("cpuinfo_raw:", cpuinfo_raw)
-print("cpuinfo", cpuinfo)
-cpuinfo= list(cpuinfo)
-print("len(cpuinfo):", len(cpuinfo))
-print("cpuinfo[0]:", cpuinfo[0])
-print("cpuinfo[1]:", cpuinfo[1])
-
-try:
-    cpunum = len(cpuinfo)
-except:
-    cpunum = 1
-
+cpuinfo = list(filter(lambda x: x is not None, [float(line.split(':')[1].strip(' ')) * 3000 if 'MHz' in line else None for line in cpuinfo_raw]))
+cpunum = len(cpuinfo)
 print("Number of CPU: ", cpunum)
 
 percent_init = 0
@@ -77,11 +65,7 @@ proc_num = 5
 # loop by each CPU to create a threads for each CPU
 for i in range(cpunum):
 
-    if cpunum == 1:
-        cpu_clock = float(cpuinfo)
-    else:
-        cpu_clock = float(cpuinfo[i])
-
+    cpu_clock = float(cpuinfo[i])
     print("cpu_clock:", cpu_clock)
 
     loop_init = int(cpu_clock * percent_init / 100.0)
@@ -129,11 +113,7 @@ while flag.value:
         percent += scale
 
     for i in range(cpunum):
-        if cpunum == 1:
-            cpu_clock = float(cpuinfo)
-        else:
-            cpu_clock = float(cpuinfo[i])
-
+        cpu_clock = float(cpuinfo[i])
         print("cpu_clock:", cpu_clock)
 
         loop_new = int(cpu_clock * percent / 100.0)
