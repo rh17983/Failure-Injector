@@ -105,6 +105,7 @@ while flag.value:
         percent = 100
 
     for i in range(cpunum):
+        print("cpuinfo", cpuinfo)
         cpu_clock = float(cpuinfo[i])
         print("cpu_clock:", cpu_clock, "percent:", percent)
 
