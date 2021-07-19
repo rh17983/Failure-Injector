@@ -33,9 +33,9 @@ where:<br>
 3. network-interface is a logical name of the target network interface (use "sudo lshw -C network" command to get the info needed)
 
 #### Examples:
-* Linear pattern: python packet_loss.py linear 25 eth0
-* Exponential pattern: python packet_loss.py expo 2 eth0
-* Random pattern: python packet_loss.py random 0 eth0
+* Linear pattern: python packet_loss.py linear 25 ens3
+* Exponential pattern: python packet_loss.py expo 2 ens3
+* Random pattern: python packet_loss.py random 0 ens3
 
 
 ## 3. Memory Leak fault injection

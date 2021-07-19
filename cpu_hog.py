@@ -94,7 +94,7 @@ while flag.value:
 
     time.sleep(interval)
 
-    if percent < 500:
+    if percent < 50000:
         scale = 1
 
         if _linear:
@@ -115,6 +115,7 @@ while flag.value:
     for i in range(cpunum):
         cpu_clock = float(cpuinfo[i])
         print("cpu_clock:", cpu_clock)
+        print("percent:", percent)
 
         loop_new = int(cpu_clock * percent / 100.0)
         sleep_new = cpu_clock - loop_new
