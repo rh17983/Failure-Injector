@@ -53,6 +53,9 @@ signal.signal(signal.SIGTERM, signal_handler)
 cpuinfo_raw = open('/proc/cpuinfo').readlines()
 cpuinfo = filter(lambda x: x is not None, [float(line.split(':')[1].strip(' ')) * 3000 if 'MHz' in line else None for line in cpuinfo_raw])
 
+print("cpuinfo_raw:", cpuinfo_raw)
+print("cpuinfo", cpuinfo)
+
 try:
     cpunum = len(cpuinfo)
 except:
