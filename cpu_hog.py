@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+import math
 import random
 import signal
 import sys
@@ -18,7 +18,7 @@ def cpuhog(loop, sleep):
     while flag.value:
         looptimes = loop.value
         for i in range(looptimes):
-            pass
+            yy = math.sqrt(2)
         time.sleep(sleep.value)
     sys.exit(0)
 
