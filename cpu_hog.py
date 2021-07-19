@@ -121,12 +121,12 @@ while flag.value:
         sleep_new = cpu_clock - loop_new
 
         if sleep_new <= 0.000000000001:
-            sleep_new = 0.000000000001
+            sleep_new = 0.0
 
         loop_lst[i].value = loop_new
-        print("Looptimes: " + str(loop_lst[i].value))
+        print("Loop time: " + str(loop_lst[i].value))
         sleeptime_lst[i].value = sleep_new * 1.0 / cpu_clock
-        print("Sleeptime: " + str(sleeptime_lst[i].value))
+        print("Sleep time: " + str(sleeptime_lst[i].value))
 
 #    print percent, [v.value for v in loop_lst],
 # [v.value for v in sleeptime_lst]
