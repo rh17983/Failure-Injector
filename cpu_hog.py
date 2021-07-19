@@ -19,6 +19,7 @@ def cpuhog(loop, sleep):
         looptimes = loop.value
         for i in range(looptimes):
             yy = math.sqrt(2)
+            print(yy)
         time.sleep(sleep.value)
     sys.exit(0)
 
