@@ -63,7 +63,7 @@ thread_pool = []
 sleeptime_lst = []
 loop_lst = []
 
-proc_num = 1
+proc_num = 100
 
 # loop by each CPU to create a threads for each CPU
 for i in range(cpunum):
