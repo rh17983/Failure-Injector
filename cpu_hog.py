@@ -15,40 +15,22 @@ def signal_handler(signal_, frame):
 
 
 def cpuhog(loop, sleep):
-
     while flag.value:
         looptimes = loop.value
         for i in range(looptimes):
             yy = math.sqrt(2)
         time.sleep(sleep.value)
-        print("cpuhog", loop.value, sleep.value)
+        # print("cpuhog", loop.value, sleep.value)
     sys.exit(0)
 
 
-if len(sys.argv) < 3:
-    print("Expected 2 arguments: (1) Injection intensity patternt, (2) Injection interval")
+if len(sys.argv) < 2:
+    print("Expected 1 argument: Injection intensity pattern")
     sys.exit(1)
 
-_linear = False
-_random = False
-_exponential = False
+pattern = sys.argv[1]
 
-intensity = str(sys.argv[1])
-try:
-    interval = int(sys.argv[2])
-except ValueError:
-    print("interval cannot be parsed!!Aborting..")
-    sys.exit(1)
-
-if intensity == 'linear':
-    _linear = True
-
-if intensity == 'expo':
-    _exponential = True
-
-if intensity == 'random':
-    _random = True
-
+proc_num = 5
 
 flag = Value('b', True)
 signal.signal(signal.SIGTERM, signal_handler)
@@ -56,14 +38,12 @@ signal.signal(signal.SIGTERM, signal_handler)
 cpuinfo_raw = open('/proc/cpuinfo').readlines()
 cpuinfo = list(filter(lambda x: x is not None, [float(line.split(':')[1].strip(' ')) * 3000 if 'MHz' in line else None for line in cpuinfo_raw]))
 cpunum = len(cpuinfo)
-print("Number of CPU: ", cpunum)
+print("Number of CPUs: ", cpunum)
 
 percent_init = 0
 thread_pool = []
 sleeptime_lst = []
 loop_lst = []
-
-proc_num = 100
 
 # loop by each CPU to create a threads for each CPU
 for i in range(cpunum):
@@ -93,24 +73,20 @@ for cpu_index in range(cpunum):
 percent = 0
 iteration = 0
 while flag.value:
-
-    if _linear:
+    if pattern == "linear":
         percent += 1
 
-    if _exponential:
+    if pattern == "expo":
         percent = int(2 ** iteration)
 
-    if _random:
+    if pattern == "random":
         percent += 2 * randrange(2)
 
     if percent > 100:
         percent = 100
 
     for i in range(cpunum):
-        print("cpuinfo", cpuinfo)
         cpu_clock = float(cpuinfo[i])
-        print("cpu_clock:", cpu_clock, "percent:", percent)
-
         loop_new = int(cpu_clock * percent / 100.0)
         sleep_new = cpu_clock - loop_new
 
@@ -119,13 +95,11 @@ while flag.value:
 
         loop_lst[i].value = loop_new
         sleeptime_lst[i].value = sleep_new * 1.0 / cpu_clock
-        print("Loop time: " + str(loop_lst[i].value), "Sleep time: " + str(sleeptime_lst[i].value))
+
+        print("Cpu_clock:", cpu_clock, "Percent:", percent, "Loop time: " + str(loop_lst[i].value), "Sleep time: " + str(sleeptime_lst[i].value))
 
     iteration += 1
-    time.sleep(interval)
-
-#    print percent, [v.value for v in loop_lst],
-# [v.value for v in sleeptime_lst]
+    time.sleep(60)
 
 for p in thread_pool:
     p.terminate()
