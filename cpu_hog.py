@@ -17,7 +17,7 @@ def signal_handler(signal_, frame):
 def cpuhog(loop, sleep):
     while flag.value:
         looptimes = loop.value
-        for i in range(looptimes):
+        for ii in range(looptimes):
             yy = math.sqrt(2)
         time.sleep(sleep.value)
         # print("cpuhog", loop.value, sleep.value)
