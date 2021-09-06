@@ -43,13 +43,16 @@ iteration = 0
 while True:
 
     if pattern == "linear":
-        delay += 50
+        # delay += 50
+        delay += 100
 
     if pattern == "expo":
-        delay += int(1.2 ** iteration)
+        # delay += int(1.2 ** iteration)
+        delay = int(1.7 ** iteration)
 
     if pattern == "random":
-        delay += 100 * randrange(2)
+        # delay += 100 * randrange(2)
+        delay += 200 * randrange(2)
 
     if iteration == 0:
         run_command(iteration, delay, net_interface, True)
