@@ -20,7 +20,7 @@ def cpuhog(loop, sleep):
         for ii in range(looptimes):
             yy = math.sqrt(2)
         time.sleep(sleep.value)
-        # print("cpuhog", loop.value, sleep.value)
+        print("cpuhog", loop.value, sleep.value)
     sys.exit(0)
 
 
