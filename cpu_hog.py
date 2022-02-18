@@ -99,7 +99,7 @@ while flag.value:
         print("Cpu_clock:", cpu_clock, "Percent:", percent, "Loop time: " + str(loop_lst[i].value), "Sleep time: " + str(sleeptime_lst[i].value))
 
     iteration += 1
-    time.sleep(60)
+    time.sleep(10)
 
 for p in thread_pool:
     p.terminate()
