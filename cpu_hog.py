@@ -83,7 +83,8 @@ while flag.value:
         percent += 2 * randrange(2)
 
     if percent > 100:
-        percent = 100
+        # percent = 100
+        pass
 
     for i in range(cpunum):
         cpu_clock = float(cpuinfo[i])
