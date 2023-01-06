@@ -47,5 +47,5 @@ while True:
     else:
         run_command(iteration, rate, net_interface)
 
-    time.sleep(1)
+    time.sleep(60)
     iteration += 1
